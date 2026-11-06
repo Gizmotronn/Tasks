@@ -1,5 +1,5 @@
 import {test} from 'node:test';import assert from 'node:assert/strict';import {readFile} from 'node:fs/promises';
-const source='const assets={"/":"<html></html>","/app.js":"export{}","/sw.js":""};'+await readFile(new URL('../src/worker.js',import.meta.url),'utf8');
+const source='const assets={"/":"<html></html>","/app.js":"export{}","/sw.js":""};'+(await readFile(new URL('../src/worker.js',import.meta.url),'utf8')).replace("import {listingEndpoint} from './listings.js';\n",'const listingEndpoint=()=>new Response();\n');
 const {default:worker}=await import('data:text/javascript;base64,'+Buffer.from(source).toString('base64'));
 test('frontend serves modules and protects document framing',async()=>{const r=await worker.fetch(new Request('https://piles.test/app.js'));assert.equal(r.status,200);assert.match(r.headers.get('content-type'),/javascript/);assert.match(r.headers.get('content-security-policy'),/frame-ancestors 'none'/);});
 test('missing assets fail and mutations are disallowed',async()=>{assert.equal((await worker.fetch(new Request('https://piles.test/missing'))).status,404);assert.equal((await worker.fetch(new Request('https://piles.test/',{method:'POST'}))).status,405);});

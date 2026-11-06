@@ -21,3 +21,9 @@ Progress records recognise self-reported milestones and challenging personal ste
 `python3 scripts/deploy.py` publishes the public assets to the `tasks-piles` Worker using CLOUDFLARE_API_TOKEN. The account and URL are retained in cloudflare.json. The script bundles static assets, applies security headers, and enables the workers.dev route. It never bundles secrets or local user data. Re-run after frontend changes. The public frontend stores personal data on-device and uses owner-authenticated PocketBase sync.
 
 The redesign retains the existing origin, tasks-piles IndexedDB, event format and account binding. Service worker v3 updates the shell and its modules without clearing local work. In-browser screenshot/interaction checks are unavailable in the current session; the sync checks exercise the production engine outside a browser.
+
+## Links and collections
+
+Use **Paste a link** in the toolbar or Listings. Pasting automatically reads the page and fills an editable title, price/currency, seller, condition and description. Review, select a collection and save; a positive USD listing can also become a wishlist target. Extraction needs a connection and the existing PocketBase login. Blocked/unsupported pages and offline mode offer manual fields with the source link retained. No AI call or listing-monitor subscription is made.
+
+Create named collections from Collections, then use the folder beside any wishlist item or listing to add/remove it from multiple collections. Collections, memberships and listings use the existing immutable event stream, IndexedDB, backup/export and PocketBase sync. Existing user data and account bindings are preserved.

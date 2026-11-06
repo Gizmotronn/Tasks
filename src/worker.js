@@ -1,6 +1,8 @@
+import {listingEndpoint} from './listings.js';
 export default {
  async fetch(request) {
   const path=new URL(request.url).pathname;
+  if(path==='/api/listing')return listingEndpoint(request);
   const headers={
    'X-Content-Type-Options':'nosniff',
    'Referrer-Policy':'no-referrer',

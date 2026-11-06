@@ -28,7 +28,9 @@ assets={}
 for f in sorted((ROOT/'public').iterdir()):
     if f.is_file():assets['/'+f.name]=f.read_text()
 assets['/']=assets['/index.html']
-worker='const assets='+json.dumps(assets)+';\n'+(ROOT/'src/worker.js').read_text()
+listing=(ROOT/'src/listings.js').read_text().replace('export ', '')
+handler=(ROOT/'src/worker.js').read_text().replace("import {listingEndpoint} from './listings.js';\n",'')
+worker='const assets='+json.dumps(assets)+';\n'+listing+'\n'+handler
 metadata={'main_module':'worker.mjs','compatibility_date':'2026-11-06'}
 boundary='piles'+uuid.uuid4().hex
 parts=[]
