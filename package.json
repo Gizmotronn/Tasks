@@ -1,0 +1,1 @@
+{"name":"tasks-piles","private":true,"type":"module","scripts":{"test":"node --test test/*.test.mjs","start":"node scripts/serve.mjs","schema":"python3 scripts/schema.py"}}

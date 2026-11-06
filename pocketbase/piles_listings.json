@@ -1,0 +1,40 @@
+{
+  "name": "piles_listings",
+  "type": "base",
+  "listRule": "@request.auth.collectionName = \"explore_users\" && owner = @request.auth.id",
+  "viewRule": "@request.auth.collectionName = \"explore_users\" && owner = @request.auth.id",
+  "createRule": "@request.auth.collectionName = \"explore_users\" && owner = @request.auth.id",
+  "updateRule": null,
+  "deleteRule": null,
+  "fields": [
+    {
+      "name": "owner",
+      "type": "relation",
+      "collectionId": "EXPLORE_USERS_ID",
+      "required": true,
+      "maxSelect": 1,
+      "cascadeDelete": false
+    },
+    {
+      "name": "event_id",
+      "type": "text",
+      "required": true,
+      "max": 80
+    },
+    {
+      "name": "event",
+      "type": "json",
+      "required": true,
+      "maxSize": 100000
+    },
+    {
+      "name": "created",
+      "type": "autodate",
+      "onCreate": true,
+      "onUpdate": false
+    }
+  ],
+  "indexes": [
+    "CREATE UNIQUE INDEX idx_piles_listings_owner_event ON piles_listings (owner, event_id)"
+  ]
+}
