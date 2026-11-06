@@ -29,8 +29,9 @@ for f in sorted((ROOT/'public').iterdir()):
     if f.is_file():assets['/'+f.name]=f.read_text()
 assets['/']=assets['/index.html']
 listing=(ROOT/'src/listings.js').read_text().replace('export ', '')
-handler=(ROOT/'src/worker.js').read_text().replace("import {listingEndpoint} from './listings.js';\n",'')
-worker='const assets='+json.dumps(assets)+';\n'+listing+'\n'+handler
+proxy=(ROOT/'src/pocketbase.js').read_text().replace('export ', '')
+handler=(ROOT/'src/worker.js').read_text().replace("import {listingEndpoint} from './listings.js';\n",'').replace("import {pocketbaseProxy} from './pocketbase.js';\n",'')
+worker='const assets='+json.dumps(assets)+';\n'+listing+'\n'+proxy+'\n'+handler
 metadata={'main_module':'worker.mjs','compatibility_date':'2026-11-06'}
 boundary='piles'+uuid.uuid4().hex
 parts=[]

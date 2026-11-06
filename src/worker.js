@@ -1,7 +1,9 @@
+import {pocketbaseProxy} from './pocketbase.js';
 import {listingEndpoint} from './listings.js';
 export default {
  async fetch(request) {
   const path=new URL(request.url).pathname;
+  if(path.startsWith('/api/pocketbase/'))return pocketbaseProxy(request);
   if(path==='/api/listing')return listingEndpoint(request);
   const headers={
    'X-Content-Type-Options':'nosniff',
