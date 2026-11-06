@@ -1,4 +1,4 @@
-const CACHE='piles-v5';const SHELL=['/','/index.html','/style.css','/app.js?v=5','/style.css?v=5','/app.js','/sync.js','/icons.js','/planner.js','/manifest.webmanifest','/icon.svg'];
+const CACHE='piles-v6';const SHELL=['/','/index.html','/style.css','/app.js?v=6','/style.css?v=6','/app.js','/sync.js','/sync.js?v=6','/icons.js','/planner.js','/manifest.webmanifest','/icon.svg'];
 self.addEventListener('install',e=>e.waitUntil(caches.open(CACHE).then(c=>c.addAll(SHELL)).then(()=>self.skipWaiting())));
 self.addEventListener('activate',e=>e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k.startsWith('piles-')&&k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim())));
 self.addEventListener('fetch',e=>{if(e.request.method!=='GET'||new URL(e.request.url).origin!==location.origin)return;e.respondWith(fetch(e.request).then(r=>{if(r.ok&&SHELL.includes(new URL(e.request.url).pathname)){const copy=r.clone();e.waitUntil(caches.open(CACHE).then(c=>c.put(e.request,copy)));}return r;}).catch(()=>caches.match(e.request).then(r=>r||(e.request.mode==='navigate'?caches.match('/'):Response.error()))));});

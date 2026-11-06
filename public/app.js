@@ -1,5 +1,5 @@
 import {plan,project} from './planner.js';
-import {PocketSync,openStorage,OWNER_EMAIL} from './sync.js';
+import {PocketSync,openStorage,OWNER_EMAIL} from './sync.js?v=6';
 import {icon} from './icons.js';
 const $=s=>document.querySelector(s),esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const money=n=>new Intl.NumberFormat(undefined,{style:'currency',currency:'USD'}).format(n/100);
